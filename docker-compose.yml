@@ -1,0 +1,22 @@
+services:
+  backend:
+    build: ./backend
+    container_name: icebreakers-generator-backend
+    ports:
+      - "3000:3000"
+    env_file:
+      - ./backend/.env
+    volumes:
+      - ./backend:/app
+    
+  frontend:
+    build: ./frontend
+    container_name: icebreakers-generator-frontend
+    ports:
+      - "5173:5173"
+    env_file:
+      - ./frontend/.env
+    volumes:
+      - ./frontend:/app
+    depends_on:
+      - backend
