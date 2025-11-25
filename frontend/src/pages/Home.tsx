@@ -1,10 +1,12 @@
 import { useState } from "react"
 import { IcebreakersForm } from "@/components/icebreakers-form"
 import { IcebreakersResults } from "@/components/icebreakers-results"
+import { generateIcebreakers } from "@/services/icebreaker.service"
 
 export default function Home() {
   const [icebreakers, setIcebreakers] = useState<string[] | null>(null)
   const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
 
   const handleGenerate = async (formData: {
     senderProfileUrl: string
@@ -13,20 +15,21 @@ export default function Home() {
     recipientProfileUrl: string
   }) => {
     setIsLoading(true)
+    setError(null)
+    
     try {
-      // Simulate API call - replace with your actual backend endpoint
-      await new Promise((resolve) => setTimeout(resolve, 1000))
+      const response = await generateIcebreakers({
+        senderUrl: formData.senderProfileUrl,
+        problemDescription: formData.problemSolved,
+        solutionDescription: formData.solutionOffered,
+        recipientUrl: formData.recipientProfileUrl,
+      })
 
-      // Mock response - replace with actual API response
-      const mockIcebreakers = [
-        `Hi! I noticed you're working on ${formData.problemSolved.substring(0, 30)}... I help with exactly that through ${formData.solutionOffered.substring(0, 30)}. Would love to connect!`,
-        `I came across your profile and saw you might be interested in solutions for ${formData.problemSolved.substring(0, 30)}. I specialize in ${formData.solutionOffered.substring(0, 30)}. Let's chat?`,
-        `Your experience caught my attention! I think you'd benefit from knowing more about how I help with ${formData.solutionOffered.substring(0, 30)}. Open to a quick chat?`,
-      ]
-
-      setIcebreakers(mockIcebreakers)
+      setIcebreakers(response.icebreakers)
     } catch (error) {
       console.error("Error generating icebreakers:", error)
+      setError("Failed to generate icebreakers. Please try again.")
+      setIcebreakers(null)
     } finally {
       setIsLoading(false)
     }
@@ -34,6 +37,7 @@ export default function Home() {
 
   const handleReset = () => {
     setIcebreakers(null)
+    setError(null)
   }
 
   return (
@@ -56,6 +60,13 @@ export default function Home() {
             onReset={handleReset}
           />
         </div>
+
+        {/* Error Message */}
+        {error && (
+          <div className="mb-8 p-4 bg-destructive/10 border border-destructive/20 rounded-lg">
+            <p className="text-sm text-destructive text-center">{error}</p>
+          </div>
+        )}
 
         {/* Results Section */}
         {icebreakers !== null && <IcebreakersResults icebreakers={icebreakers} />}
