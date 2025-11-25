@@ -13,19 +13,6 @@ export interface ProfessionalProfile {
     industry?: string;
   };
 
-  experience?: Array<{
-    title: string;
-    company: string;
-    industry?: string;
-    description?: string;
-  }>;
-
-  education?: Array<{
-    institution: string;
-    degree?: string;
-    field?: string;
-  }>;
-
   skills?: string[];
 
   certifications?: Array<{
@@ -39,7 +26,6 @@ export interface ProfessionalProfile {
     text: string;
     postUrl: string;
     postedDate: string;
+    likeCount: number;
   }>;
-
-  languages?: string[];
 }

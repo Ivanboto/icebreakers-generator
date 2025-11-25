@@ -42,27 +42,6 @@ const transformToGenericProfile = (
     }
   }
 
-  const experience =
-    data.fullPositions?.slice(0, 4).map((pos: any) => {
-      const exp: any = {
-        title: pos.title || "",
-        company: pos.companyName || "",
-      };
-      if (pos.companyIndustry) exp.industry = pos.companyIndustry;
-      if (pos.description) exp.description = pos.description;
-      return exp;
-    }) || [];
-
-  const education =
-    data.educations?.slice(0, 2).map((edu: any) => {
-      const ed: any = {
-        institution: edu.schoolName || "",
-      };
-      if (edu.degree) ed.degree = edu.degree;
-      if (edu.fieldOfStudy) ed.field = edu.fieldOfStudy;
-      return ed;
-    }) || [];
-
   const skills =
     data.skills?.slice(0, 12).map((skill: any) => skill.name || skill) || [];
 
@@ -82,10 +61,8 @@ const transformToGenericProfile = (
       text: post.text || "",
       postUrl: post.postUrl || "",
       postedDate: post.postedDate || "",
+      likeCount: post.likeCount || 0,
     })) || [];
-
-  const languages =
-    data.supportedLocales?.map((locale: any) => locale.language) || [];
 
   const profile: ProfessionalProfile = {
     fullName:
@@ -101,12 +78,9 @@ const transformToGenericProfile = (
     profile.location = data.geo.full || data.geo.city;
   }
   if (currentPosition) profile.currentPosition = currentPosition;
-  if (experience.length > 0) profile.experience = experience;
-  if (education.length > 0) profile.education = education;
   if (skills.length > 0) profile.skills = skills;
   if (certifications.length > 0) profile.certifications = certifications;
   if (posts.length > 0) profile.posts = posts;
-  if (languages.length > 0) profile.languages = languages;
 
   return profile;
 };
@@ -162,5 +136,5 @@ export const getMultipleProfiles = async (
 };
 
 export default {
-  getMultipleProfiles
+  getMultipleProfiles,
 };
