@@ -64,7 +64,7 @@ export function IcebreakersForm({ onSubmit, isLoading, hasResults, onReset }: Ic
         {/* Sender Profile URL */}
         <div className="space-y-2">
           <Label htmlFor="senderProfileUrl" className="text-sm font-medium">
-            Your LinkedIn Profile URL
+            <span className="text-destructive">* </span>Your LinkedIn Profile URL
           </Label>
           <Input
             id="senderProfileUrl"
@@ -82,7 +82,7 @@ export function IcebreakersForm({ onSubmit, isLoading, hasResults, onReset }: Ic
         {/* Problem You Solve */}
         <div className="space-y-2">
           <Label htmlFor="problemSolved" className="text-sm font-medium">
-            Problem You Solve
+            <span className="text-destructive">* </span>Problem You Solve
           </Label>
           <Textarea
             id="problemSolved"
@@ -100,7 +100,7 @@ export function IcebreakersForm({ onSubmit, isLoading, hasResults, onReset }: Ic
         {/* Solution You Offer */}
         <div className="space-y-2">
           <Label htmlFor="solutionOffered" className="text-sm font-medium">
-            Solution You Offer
+            <span className="text-destructive">* </span>Solution You Offer
           </Label>
           <Textarea
             id="solutionOffered"
@@ -120,7 +120,7 @@ export function IcebreakersForm({ onSubmit, isLoading, hasResults, onReset }: Ic
         {/* Recipient Profile URL */}
         <div className="space-y-2">
           <Label htmlFor="recipientProfileUrl" className="text-sm font-medium">
-            Recipient's LinkedIn Profile URL
+            <span className="text-destructive">* </span>Recipient's LinkedIn Profile URL
           </Label>
           <Input
             id="recipientProfileUrl"
