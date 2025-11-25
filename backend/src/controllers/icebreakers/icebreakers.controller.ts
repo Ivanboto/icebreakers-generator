@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import profileDataService from "../../services/profileData.service";
+import openaiService from "../../services/openai.service";
 import { asyncHandler, createHttpError } from "../../utils";
 
 export const generateIcebreakers = asyncHandler(
@@ -29,13 +30,15 @@ export const generateIcebreakers = asyncHandler(
       );
     }
 
-    // Response temporal
+    const { icebreakers } = await openaiService.generateIcebreakers({
+      senderProfile,
+      recipientProfile,
+      problemDescription,
+      solutionDescription,
+    });
+
     const response = {
-      icebreakers: [
-        "Icebreaker 1 - En desarrollo...",
-        "Icebreaker 2 - En desarrollo...",
-        "Icebreaker 3 - En desarrollo...",
-      ],
+      icebreakers,
       metadata: {
         senderUrl,
         recipientUrl,
