@@ -1,20 +1,6 @@
 import { api } from "./api";
-
-export interface GenerateIcebreakersRequest {
-  senderUrl: string;
-  problemDescription: string;
-  solutionDescription: string;
-  recipientUrl: string;
-}
-
-export interface GenerateIcebreakersResponse {
-  icebreakers: string[];
-  metadata: {
-    senderUrl: string;
-    recipientUrl: string;
-    timestamp: string;
-  };
-}
+import type { GenerateIcebreakersRequest } from "../types/generateIcebreakersRequest";
+import type { GenerateIcebreakersResponse } from "../types/generateIcebreakersResponse";
 
 export const generateIcebreakers = async (
   data: GenerateIcebreakersRequest
