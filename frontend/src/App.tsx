@@ -1,3 +1,5 @@
+import Home from "@/pages/Home";
+
 export function App() {
-  return <h1>Icebreakers Generator</h1>;
+  return <Home />;
 }
